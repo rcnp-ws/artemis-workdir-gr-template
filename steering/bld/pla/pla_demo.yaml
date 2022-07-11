@@ -2,5 +2,5 @@ Processor:
   - include:
       name: pla.tmpl.yaml
       replace:
-        CID: 21
+        CID: 2
         NAME: pla_demo
