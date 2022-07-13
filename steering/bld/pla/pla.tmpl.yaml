@@ -17,6 +17,7 @@ Processor:
     type: art::TTimingChargeMappingProcessor
     parameter:
       CatID:              @CID@
+      ChargeType:         1
       TimingTypeID:       0
       ChargeTypeID:       1
       TrailingComesFirst: 0
