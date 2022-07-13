@@ -23,14 +23,13 @@ Processor:
    - include: bld/pla/pla_demo.yaml
    - include: bld/mwdc/mwdc_demo.yaml
 
-#  Under construction
-#   - name: projection_dc1_demo
-#     type: art::TTreeProjectionProcessor
-#     parameter:
-#       Type:     art::TTreeProjection
-#       FileName: hist/dc1_demo.yaml
-#       OutputFilename: *histout
-#  Under construction
+   - name: projection_pla_demo
+     type: art::TTreeProjectionProcessor
+     parameter:
+       Type:     art::TTreeProjection
+       FileName: hist/pla/pla_demo.yaml
+       OutputFilename: *histout
+
 
    - name: outputtree
      type: art::TOutputTreeProcessor
