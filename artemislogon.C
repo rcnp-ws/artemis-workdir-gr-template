@@ -18,7 +18,7 @@
 
    // load libraries
    gSystem->Load("libuser");
-   gSystem->Load("libCAT");
+//   gSystem->Load("libCAT");
    //gSystem->Load("{liborig}"); // when use original library
 
    TCatCmdFactory *cf = TCatCmdFactory::Instance();
@@ -93,38 +93,49 @@
 //      gSystem->SetIncludePath(path);
    }
    {
+
       art::TModuleDecoderFactory *df = art::TModuleDecoderFactory::Instance();
-      // mod ID 0 : Fixed16
-      const Int_t digits0 = 16;
-      df->Register(new art::TModuleDecoderFixed<unsigned short>(0,digits0) );
-      // mod ID 1 : Fixed24
-      const Int_t digits1 = 24;
-      df->Register(new art::TModuleDecoderFixed<unsigned int>(1,digits1) );
-      // mod ID 21 : V7XX
-      df->Register(new art::TModuleDecoderV7XX);
-      // mod ID 23 : V767
-      df->Register(new art::TModuleDecoderV767);
 
-      // mod ID 24 : V1190
-      // mod ID 25 : V1290
-      // mod ID 26 : V1190C
-      art::TModuleDecoder *v1190 = new art::TModuleDecoderV1190;
-      art::TModuleDecoder *v1290 = new art::TModuleDecoderV1290(25);
-      art::TModuleDecoder *v1190c = new art::TModuleDecoderV1190(26);
-      v1190->SetVerboseLevel(kError);
-      v1290->SetVerboseLevel(kError);
-      v1190c->SetVerboseLevel(kError);
-      df->Register(v1190);
-      df->Register(v1290);
-      df->Register(v1190c);
+      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoderV1190_rcnp)");
+      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoder3377)");
+      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoderTS)");
+      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoderFERA)");
+      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoderFERET)");
+      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoderMXDC32_rcnp)");
 
-      // mod ID 36 : SIS3820
-      df->Register(new art::TModuleDecoderSIS3820);
-      df->Register(new art::TModuleDecoderSIS3610);
-
-      df->Register(new art::TModuleDecoderSkip(42));
-      df->Register(new art::TModuleDecoderSkip(8));
-
+//      
+//      art::TModuleDecoderFactory *df = art::TModuleDecoderFactory::Instance();
+//      // mod ID 0 : Fixed16
+//      const Int_t digits0 = 16;
+//      df->Register(new art::TModuleDecoderFixed<unsigned short>(0,digits0) );
+//      // mod ID 1 : Fixed24
+//      const Int_t digits1 = 24;
+//      df->Register(new art::TModuleDecoderFixed<unsigned int>(1,digits1) );
+//      // mod ID 21 : V7XX
+//      df->Register(new art::TModuleDecoderV7XX);
+//      // mod ID 23 : V767
+//      df->Register(new art::TModuleDecoderV767);
+//
+//      // mod ID 24 : V1190
+//      // mod ID 25 : V1290
+//      // mod ID 26 : V1190C
+//      art::TModuleDecoder *v1190 = new art::TModuleDecoderV1190;
+//      art::TModuleDecoder *v1290 = new art::TModuleDecoderV1290(25);
+//      art::TModuleDecoder *v1190c = new art::TModuleDecoderV1190(26);
+//      v1190->SetVerboseLevel(kError);
+//      v1290->SetVerboseLevel(kError);
+//      v1190c->SetVerboseLevel(kError);
+//      df->Register(v1190);
+//      df->Register(v1290);
+//      df->Register(v1190c);
+//
+//      // mod ID 36 : SIS3820
+//      df->Register(new art::TModuleDecoderSIS3820);
+//      df->Register(new art::TModuleDecoderSIS3610);
+//
+//      df->Register(new art::TModuleDecoderSkip(42));
+//      df->Register(new art::TModuleDecoderSkip(8));
+//
       // original decoder 
       //gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoder{MoudleName});");
 

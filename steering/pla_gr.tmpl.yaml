@@ -1,0 +1,67 @@
+# file : pla_gr.tmpl.yaml 
+# date : 2022.07.01 by Y.HIJIKATA
+# lastest update : 2022.07.01 by Y.HIJIKATA
+
+Processor:
+
+  - name: proc_pla_gr_@VMEFERA@_prm_ch2ns
+    type: art::TParameterArrayLoader
+    parameter:
+      Name:     prm_pla_gr_@VMEFERA@_ch2ns
+      Type:     art::TAffineConverter
+      FileName: prm/pla/pla_gr_@VMEFERA@_ch2ns.dat
+
+  - name: proc_pla_gr_@VMEFERA@_prm_ch2MeV
+    type: art::TParameterArrayLoader
+    parameter:
+      Name:     prm_pla_gr_@VMEFERA@_ch2MeV
+      Type:     art::TAffineConverter
+      FileName: prm/pla/pla_gr_@VMEFERA@_ch2MeV.dat
+
+  - name: proc_pla_gr_@VMEFERA@_raw
+    type: art::TTimingChargeMappingProcessor
+    parameter:
+      CatID:              @CATID@
+      ChargeType:         1
+      ChargeTypeID:       1
+      TimingTypeID:       0
+      OutputCollection:   pla_gr_@VMEFERA@_raw
+      OutputTransparency: 0
+
+  - name: proc_pla_gr_@VMEFERA@_calib
+    type: art::TTimingChargeCalibrationProcessor
+    parameter:
+      InputCollection:      pla_gr_@VMEFERA@_raw
+      TimingConverterArray: prm_pla_gr_@VMEFERA@_ch2ns
+      ChargeConverterArray: prm_pla_gr_@VMEFERA@_ch2MeV
+      OutputCollection:     pla_gr_@VMEFERA@_cal
+      OutputTransparency:   0
+
+  - name: proc_pla_gr_@VMEFERA@_separater
+    type: art::TSeparateOutputProcessor
+    parameter:
+      InputCollection: pla_gr_@VMEFERA@_cal
+      OutputCollections:
+        - pla_gr_@VMEFERA@_1l
+        - pla_gr_@VMEFERA@_1r
+        - pla_gr_@VMEFERA@_2l
+        - pla_gr_@VMEFERA@_2r
+
+  - name: proc_pla_gr_@VMEFERA@_1
+    type: art::TTwoSidedPlasticCalibrationProcessor
+    parameter:
+      InputCollection1:   pla_gr_@VMEFERA@_1l
+      InputCollection2:   pla_gr_@VMEFERA@_1r
+      OutputCollection:   pla_gr_@VMEFERA@_1
+      OutputTransparency: 0
+
+  - name: proc_pla_gr_@VMEFERA@_2
+    type: art::TTwoSidedPlasticCalibrationProcessor
+    parameter:
+      InputCollection1:   pla_gr_@VMEFERA@_2l
+      InputCollection2:   pla_gr_@VMEFERA@_2r
+      OutputCollection:   pla_gr_@VMEFERA@_2
+      OutputTransparency: 0
+
+
+      

@@ -1,9 +1,12 @@
 *~
 ridf
+rawdata
 share
 output
 .vncdisplay
 .root_hist
+.roothist
+.zsh_history
 current
 figs
 #*

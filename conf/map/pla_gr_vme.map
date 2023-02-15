@@ -1,0 +1,7 @@
+#CatID ID sh fp det geo ch
+
+21 0   0  0 24 30  0   0  0 32  0  0  # pla1 L TDC & ADC
+21 1   0  0 24 30  1   0  0 32  0  1  # pla1 R TDC & ADC
+21 2   0  0 24 30  2   0  0 32  0  2  # pla2 L TDC & ADC 
+21 3   0  0 24 30  3   0  0 32  0  3  # pla2 R TDC & ADC 
+

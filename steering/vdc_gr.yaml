@@ -1,0 +1,137 @@
+# file : vdc_gr.yaml 
+# date : 2022.07.01 by Y.HIJIKATA
+# lastest update : 2022.07.01 by Y.HIJIKATA
+
+alias:
+  - &timegate [-360,-80]
+
+Processor:
+
+# parameter laod
+
+  - name: proc_vdc_gr_prm_geo
+    type: art::TParameterLoader
+    parameter:
+      Name: vdc_gr
+      Type: art::TMWDCParameter
+      FileName: prm/vdc_gr/geometry.yaml
+
+  - name: proc_vdc_gr_prm_x1
+    type: art::TParameterLoader
+    parameter:
+      Name: VDC_PRM_GR_X1
+      Type: art::TMonotoneTableConverter
+      FileName: prm/vdc_gr/dt2dl/current/x1.dat
+  - name: proc_vdc_gr_prm_x2
+    type: art::TParameterLoader
+    parameter:
+      Name: VDC_PRM_GR_X2
+      Type: art::TMonotoneTableConverter
+      FileName: prm/vdc_gr/dt2dl/current/x2.dat
+  - name: proc_vdc_ge_prm_u1
+    type: art::TParameterLoader
+    parameter:
+      Name: VDC_PRM_GR_U1
+      Type: art::TMonotoneTableConverter
+      FileName: prm/vdc_gr/dt2dl/current/u1.dat
+  - name: proc_vdc_gr_prm_u2
+    type: art::TParameterLoader
+    parameter:
+      Name: VDC_PRM_GR_U2
+      Type: art::TMonotoneTableConverter
+      FileName: prm/vdc_gr/dt2dl/current/u2.dat
+
+
+# load & plane calib
+
+  - name: proc_vdc_gr_raw
+    type: art::TTimingChargeMappingProcessor
+    parameter:
+      CatID: 51
+      TimingTypeID: 0
+      TrailingComesFirst: 0
+      OutputCollection: vdc_gr_raw
+      OutputTransparency: 0
+  - name: proc_vdc_gr_plane
+    type: art::TVDCPlaneProcessor
+    parameter:
+      InputCollection: vdc_gr_raw
+      MWDCName: vdc_gr
+      SortType: 0
+      V1190: 0
+      ConverterList:
+        - VDC_PRM_GR_X1
+        - VDC_PRM_GR_X2
+        - VDC_PRM_GR_U1
+        - VDC_PRM_GR_U2
+      OutputTransparency: 0 
+      GR_OR_LAS: 0
+
+# cluster analysis
+
+  - name: proc_vdc_gr_cluster_x1
+    type: art::TVDCClusterizationProcessor
+    parameter:
+      InputCollection: vdc_gr_x1
+      OutputCollection: vdc_gr_clust_x1
+      OutputTransparency: 0
+  - name: proc_vdc_gr_cluster_x2
+    type: art::TVDCClusterizationProcessor
+    parameter:
+      InputCollection: vdc_gr_x2
+      OutputCollection: vdc_gr_clust_x2
+      OutputTransparency: 0
+  - name: proc_vdc_gr_cluster_u1
+    type: art::TVDCClusterizationProcessor
+    parameter:
+      InputCollection: vdc_gr_u1
+      OutputCollection: vdc_gr_clust_u1
+      OutputTransparency: 0
+  - name: proc_vdc_gr_cluster_u2
+    type: art::TVDCClusterizationProcessor
+    parameter:
+      InputCollection: vdc_gr_u2
+      OutputCollection: vdc_gr_clust_u2
+      OutputTransparency: 0
+
+# tracking
+
+  - name: proc_tracking_gr
+    type: art::TVDCTrackingProcessor_gr
+    parameter:
+      InputCollection:
+        - vdc_gr_clust_x1
+        - vdc_gr_clust_x2
+        - vdc_gr_clust_u1
+        - vdc_gr_clust_u2
+      InputCollection2:
+        - vdc_gr_x1
+        - vdc_gr_x2
+        - vdc_gr_u1
+        - vdc_gr_u2
+      OutputCollection: vdc_gr
+      OutputTransparency: 0
+     
+
+# calibration processor
+
+  - name: proc_vdc_calib_x1
+    type: art::TMWDCCalibrationProcessor
+    parameter:
+      InputCollection: vdc_gr_x1
+      TimingGate: *timegate
+  - name: proc_vdc_calib_x2
+    type: art::TMWDCCalibrationProcessor
+    parameter:
+      InputCollection: vdc_gr_x2
+      TimingGate: *timegate
+  - name: proc_vdc_calib_u1
+    type: art::TMWDCCalibrationProcessor
+    parameter:
+      InputCollection: vdc_gr_u1
+      TimingGate: *timegate
+  - name: proc_vdc_calib_u2
+    type: art::TMWDCCalibrationProcessor
+    parameter:
+      InputCollection: vdc_gr_u2
+      TimingGate: *timegate      
