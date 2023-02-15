@@ -5,13 +5,6 @@
     angle : 0
     center: 95.5
 
-- x2:
-    z: 250
-    nWire: 192
-    cellSize: 6
-    angle : 0
-    center: 95.5
-
 - u1:
     z: 20
     nWire: 208
@@ -19,9 +12,17 @@
     angle : 48.19
     center: 89.8167 # = (602.9-64)/6+1  ???
 
+- x2:
+    z: 250
+    nWire: 192
+    cellSize: 6
+    angle : 0
+    center: 53.833
+#    center: 95.5
 - u2:
     z: 270
     nWire: 208
     cellSize: 4
     angle : 48.19
-    center: 89.7833 # = (602.7-250-64)/6 ???
+    center: 48.116 # = (602.7-250-64)/6 ???
+#    center: 89.7833 # = (602.7-250-64)/6 ???

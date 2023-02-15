@@ -61,8 +61,8 @@ Processor:
       V1190: 0
       ConverterList:
         - VDC_PRM_GR_X1
-        - VDC_PRM_GR_X2
         - VDC_PRM_GR_U1
+        - VDC_PRM_GR_X2
         - VDC_PRM_GR_U2
       OutputTransparency: 0 
       GR_OR_LAS: 0
@@ -101,13 +101,13 @@ Processor:
     parameter:
       InputCollection:
         - vdc_gr_clust_x1
-        - vdc_gr_clust_x2
         - vdc_gr_clust_u1
+        - vdc_gr_clust_x2
         - vdc_gr_clust_u2
       InputCollection2:
         - vdc_gr_x1
-        - vdc_gr_x2
         - vdc_gr_u1
+        - vdc_gr_x2
         - vdc_gr_u2
       OutputCollection: vdc_gr
       OutputTransparency: 0

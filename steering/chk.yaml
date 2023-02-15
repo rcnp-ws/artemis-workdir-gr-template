@@ -3,7 +3,7 @@
 # lastest update : 2022.07.01 by Y.HIJIKATA
 
 Anchor:
-  - &input datalkjasdf/run@NUM@.bld
+  - &input blddata/run@NUM@.bld
 #  - &input /home/e483/data/run2005.bld
   - &output output/run@NUM@.root
 
@@ -22,6 +22,7 @@ Processor:
     type: art::TMappingProcessor
     parameter:
       OutputTransparency: 1
+      MapConfig: mapper_tamidaq.conf
 
   - include: tref.yaml
   - include: pla_gr.yaml
