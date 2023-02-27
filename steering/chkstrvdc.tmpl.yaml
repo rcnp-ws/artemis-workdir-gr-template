@@ -1,0 +1,68 @@
+# file : chkstrvdc.tmpl.yaml 
+# Created       : 2023-02-22 13:27:47 JST
+# Last Modified : 2023-02-27 12:31:21 JST
+
+Anchor:
+  - &maxevt 1000000
+#  - &input blddata/run@NUM@.bld
+#  - &input /home/e483/data/run2005.bld
+  - &output output/hoge.root
+
+Processor:
+  - name: timer
+    type: art::TTimerProcessor
+  - include:
+      name: strevtall.inc.yaml
+      replace:
+        MAX: *maxevt
+
+  - name: mapper
+    type: art::TMappingProcessor
+    parameter:
+      OutputTransparency: 1
+      MapConfig: mapper.conf
+
+  - include:
+      name: pla_gr.tmpl.yaml
+      replace:
+        CATID: 23
+        VMEFERA: str
+  - include: vdc_gr_str.yaml
+  - name: MyTRawDataMappingProcessor_HBD
+    type: art::TRawDataMappingProcessor
+    parameter:
+      CatID: 201  # [Int_t] Category ID of rawdata
+      Input: catdata  # [TString] The name of input categorized data
+      Output: hbd  # [TString] The name of output collection
+      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
+      OutputClass: art::TStreamingHeartBeatDelimiter  # [TString] The name of output class
+      Verbose: 0  # [Int_t] verbose level (default 1 : non quiet)
+#  - name: proc_pla_gr_@VMEFERA@_raw
+#    type: art::TTimingChargeMappingProcessor
+#    parameter:
+#      CatID:              23
+#      ChargeType:         1
+#      ChargeTypeID:         1
+#      TimingTypeID:       0
+#      OutputCollection:   pla_gr_raw_lr
+#      OutputTransparency: 0
+#  - name: proc_pla_gr_sep_separater
+#    type: art::TSeparateOutputProcessor
+#    parameter:
+#      InputCollection: pla_gr_raw_lr
+#      OutputCollections:
+#        - pla_gr_lr_1l
+#        - pla_gr_lr_1r
+#        - pla_gr_lr_2l
+#        - pla_gr_lr_2r
+
+#  - name: hist_pla_gr
+#    type: art::TTreeProjectionProcessor
+#    parameter:
+#      Type: art::TTreeProjection
+#      FileName: hist/pla/pla_gr.hist.yaml
+#
+  - name: outputtree
+    type: art::TOutputTreeProcessor
+    parameter:
+      FileName: *output

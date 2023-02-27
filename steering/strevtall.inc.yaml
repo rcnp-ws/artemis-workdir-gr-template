@@ -1,0 +1,54 @@
+anchor:
+  - &maxevt @MAX@
+
+Processor:
+  - include:
+      name: strevt.inc.yaml
+      replace:
+        MAX: *maxevt
+        DIR: 00
+  - include:
+      name: strevt.inc.yaml
+      replace:
+        MAX: *maxevt
+        DIR: 01
+  - include:
+      name: strevt.inc.yaml
+      replace:
+        MAX: *maxevt
+        DIR: 02
+  - include:
+      name: strevt.inc.yaml
+      replace:
+        MAX: *maxevt
+        DIR: 03
+  - include:
+      name: strevt.inc.yaml
+      replace:
+        MAX: *maxevt
+        DIR: 04
+  - include:
+      name: strevt.inc.yaml
+      replace:
+        MAX: *maxevt
+        DIR: 05
+  - include:
+      name: strevt.inc.yaml
+      replace:
+        MAX: *maxevt
+        DIR: 06
+  - include:
+      name: strevt.inc.yaml
+      replace:
+        MAX: *maxevt
+        DIR: 07
+  - include:
+      name: strevt.inc.yaml
+      replace:
+        MAX: *maxevt
+        DIR: 08
+  - include:
+      name: strevt.inc.yaml
+      replace:
+        MAX: *maxevt
+        DIR: 09

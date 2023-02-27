@@ -1,78 +1,57 @@
 #
 # Created       : 2023-02-11 14:42:53 JST
-# Last Modified : 2023-02-15 14:41:33 JST
+# Last Modified : 2023-02-22 13:24:42 JST
+anchor:
+  - &maxevt 1000000
 
 Processor:
   - name: Timer
     type: art::TTimerProcessor
-  - name: MyTStreamingEventStore
-    type: art::TStreamingEventStore
-    parameter:
-      EventHeaderName: eventheader  # [TString] the name of event header
-#      FileName: ["data/run000002.dat"]  # [StringVec_t] names of input files
-      FileName: ["run6.dat"]  # [StringVec_t] names of input files
-#      MaxFrames: 10  # [Int_t] maximum number of frames (no limit if 0)
-      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
-      RunHeadersName: runheader  # [TString] the name of output array for run headers
-      SegmentedData: segdata  # [TString] The name of output segmented data
-      StartFrame: 0  # [Int_t] start point number of frame
-      Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
+  - include:
+      name: strevtall.inc.yaml
+      replace:
+        MAX: *maxevt
   - name: MyTMappingProcessor
     type: art::TMappingProcessor
     parameter:
       CategorizedData: catdata  # [TString] The name of output array for categorized data
-      InputCollection: [segdata]  # [StringVec_t] Input collection should inherit from TSegmentedData
-      MapConfig: mapper.conf  # [TString] File for map configuration. Not mapped if the name is blank.
+      InputCollection: segdata  # [StringVec_t] Input collection should inherit from TSegmentedData
+      MapConfig: mapper_rawcheck.conf  # [TString] File for map configuration. Not mapped if the name is blank.
       OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
       Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
-#  - name: MyTTimingChargeMappingProcessor
-#    type: art::TTimingChargeMappingProcessor
-#    parameter:
-#      CatID: 1  # [Int_t] Category ID of plastic
-#      ChargeType: 0  # [Int_t] 0: V1190 width (default), 1: QDC (V792 etc.), 2: paired time and charge (hinp)
-#      ChargeTypeID: 2  # [Int_t] data type id for charge information (valid when ChargeType != (0 or 2) , default: 2)
-#      InputCollection: catdata  # [TString] rawdata object returned by TRIDFEventStore
-#      OutputCollection: hrtdcraw  # [TString] output collection name
-#      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
-#      Sparse: 1  # [Bool_t] hit will be inserted at the index corresponding to its id if sparse is 0, otherwize hit will be added ordinaly (default: 1)
-#      TimingTypeID: 0  # [Int_t] data type id for timing information (default: 1)
-#      TrailingComesFirst: 0  # [Bool_t] 0: Leading->Trailing (default), 1: Trailing->Leading (for QTC etc.)
-#      Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
   - name: MyTTimingChargeMappingProcessor
     type: art::TTimingChargeMappingProcessor
     parameter:
-      CatID: 2  # [Int_t] Category ID of plastic
+      CatID: 1  # [Int_t] Category ID of plastic
       ChargeType: 0  # [Int_t] 0: V1190 width (default), 1: QDC (V792 etc.), 2: paired time and charge (hinp)
       ChargeTypeID: 2  # [Int_t] data type id for charge information (valid when ChargeType != (0 or 2) , default: 2)
       InputCollection: catdata  # [TString] rawdata object returned by TRIDFEventStore
-      OutputCollection: pla_l  # [TString] output collection name
+      OutputCollection: hrtdcraw  # [TString] output collection name
       OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
       Sparse: 1  # [Bool_t] hit will be inserted at the index corresponding to its id if sparse is 0, otherwize hit will be added ordinaly (default: 1)
       TimingTypeID: 0  # [Int_t] data type id for timing information (default: 1)
       TrailingComesFirst: 0  # [Bool_t] 0: Leading->Trailing (default), 1: Trailing->Leading (for QTC etc.)
       Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
-  - name: MyTTimingChargeMappingProcessor
-    type: art::TTimingChargeMappingProcessor
-    parameter:
-      CatID: 2  # [Int_t] Category ID of plastic
-      ChargeType: 0  # [Int_t] 0: V1190 width (default), 1: QDC (V792 etc.), 2: paired time and charge (hinp)
-      ChargeTypeID: 2  # [Int_t] data type id for charge information (valid when ChargeType != (0 or 2) , default: 2)
-      InputCollection: catdata  # [TString] rawdata object returned by TRIDFEventStore
-      OutputCollection: pla_r  # [TString] output collection name
-      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
-      Sparse: 1  # [Bool_t] hit will be inserted at the index corresponding to its id if sparse is 0, otherwize hit will be added ordinaly (default: 1)
-      TimingTypeID: 1  # [Int_t] data type id for timing information (default: 1)
-      TrailingComesFirst: 0  # [Bool_t] 0: Leading->Trailing (default), 1: Trailing->Leading (for QTC etc.)
-      Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
-  - name: proc_strip_t
-    type: art::TTwoSidedPlasticCalibrationProcessor
-    parameter:
-      InputCollection1: pla_l
-      InputCollection2: pla_r
-      OutputCollection: pla
-      DetIDRange:       [0,1]
-      ValidTimeRange: [-3e5,3e5,0.]
-      
+  - include:
+      name: pla_st.tmpl.yaml
+      replace:
+        CATID: 2
+        DNAME: pla81
+  - include:
+      name: pla_st.tmpl.yaml
+      replace:
+        CATID: 3
+        DNAME: pla91
+  - include:
+      name: pla_st.tmpl.yaml
+      replace:
+        CATID: 4
+        DNAME: pla82
+  - include:
+      name: pla_st.tmpl.yaml
+      replace:
+        CATID: 5
+        DNAME: pla92
   - name: MyTRawDataMappingProcessor_HBD
     type: art::TRawDataMappingProcessor
     parameter:
@@ -81,7 +60,7 @@ Processor:
       Output: hbd  # [TString] The name of output collection
       OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
       OutputClass: art::TStreamingHeartBeatDelimiter  # [TString] The name of output class
-      Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
+      Verbose: 0  # [Int_t] verbose level (default 1 : non quiet)
   - name: MyTRawDataMappingProcessor
     type: art::TRawDataMappingProcessor
     parameter:
@@ -90,7 +69,7 @@ Processor:
       Output: sd # [TString] The name of output collection
       OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
       OutputClass: art::TStreamingSpillDelimiter  # [TString] The name of output class
-      Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
+      Verbose: 0  # [Int_t] verbose level (default 1 : non quiet)
   - name: MyTOutputTreeProcessor
     type: art::TOutputTreeProcessor
     parameter:
