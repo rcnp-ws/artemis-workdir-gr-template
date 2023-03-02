@@ -3,7 +3,7 @@
 # lastest update : 2022.07.01 by Y.HIJIKATA
 
 alias:
-  - &timegate [-360,-80]
+  - &timegate [-200,100]
 
 Processor:
 
@@ -13,6 +13,12 @@ Processor:
     type: art::TParameterLoader
     parameter:
       Name: vdc_gr
+      Type: art::TMWDCParameter
+      FileName: prm/vdc_gr/geometry.yaml
+  - name: proc_vdc_gr_prm_geo
+    type: art::TParameterLoader
+    parameter:
+      Name: vdc_gr_clust
       Type: art::TMWDCParameter
       FileName: prm/vdc_gr/geometry.yaml
 
@@ -41,6 +47,12 @@ Processor:
       Type: art::TMonotoneTableConverter
       FileName: prm/vdc_gr/dt2dl/current/u2.dat
 
+  - name: proc_vdc_gr_str_prm_ch2ns
+    type: art::TParameterArrayLoader
+    parameter:
+      Name:     prm_vdc_gr_ch2ns
+      Type:     art::TAffineConverter
+      FileName: prm/vdc_gr/vdc_gr.ch2ns.dat
 
 # load & plane calib
 
@@ -52,13 +64,31 @@ Processor:
       TrailingComesFirst: 0
       OutputCollection: vdc_gr_raw
       OutputTransparency: 0
+  - name: proc_vdc_gr_calib
+    type: art::TTimingChargeCalibrationProcessor
+    parameter:
+      InputCollection:      vdc_gr_raw
+      TimingConverterArray: prm_vdc_gr_ch2ns
+      ChargeConverterArray: prm_vdc_gr_ch2ns
+      OutputCollection:     vdc_gr_cal
+      OutputTransparency:   0
+  - name: proc_vdc_gr_subdirs
+    type: art::TTimingSubtractionProcessor
+    parameter:
+      InputCollection: vdc_gr_cal
+      MaxDetID: 800
+      OutputCollection: vdc_gr_dt
+      StartTimingCollection: pla_gr_vme_1
+      UseMultipleStartTiming: 1
+      UseStartAsTimestamp: 1  # [Int_t] timestamp is start (if 1) or end (if 0)
+      StartTimingDetID: 0  # [Int_t] detID of reference timing source (if -1 use any id)      
+      ValidTimeRange: [-1000, 1000, 0]  # [vector<Double_t>] [min,max,offset] => Tmin = offset + min etc. ignored if min == max
   - name: proc_vdc_gr_plane
     type: art::TVDCPlaneProcessor
     parameter:
-      InputCollection: vdc_gr_raw
+      InputCollection: vdc_gr_dt
       MWDCName: vdc_gr
       SortType: 0
-      V1190: 0
       ConverterList:
         - VDC_PRM_GR_X1
         - VDC_PRM_GR_U1
@@ -111,7 +141,19 @@ Processor:
         - vdc_gr_u2
       OutputCollection: vdc_gr
       OutputTransparency: 0
-     
+
+
+  - name: proc_tracking_gr
+    type: art::TVDCTrackingProcessor
+    parameter:
+      InputCollection:
+        - vdc_gr_clust_x1
+        - vdc_gr_clust_u1
+        - vdc_gr_clust_x2
+        - vdc_gr_clust_u2
+      OutputCollection: vdc_gr_m
+      OutputTransparency: 0
+
 
 # calibration processor
 
