@@ -7,7 +7,7 @@
    TString incpath = gSystem->GetIncludePath();
    
    // dypath.Append(":./src/"); // when use original source in src
-   dypath.Append(":{share-path}"); // artemis-cat-src directory
+   // dypath.Append(":{share-path}"); // artemis-cat-src directory
 
    incpath.Append(gSystem->GetFromPipe("artemis-config --cflags"));
    //incpath.Append(" -Isrc");  // when use original source in src

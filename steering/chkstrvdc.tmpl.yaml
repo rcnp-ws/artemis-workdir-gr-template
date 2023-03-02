@@ -3,7 +3,8 @@
 # Last Modified : 2023-02-27 12:31:21 JST
 
 Anchor:
-  - &maxevt 1000000
+  - &maxevt 0
+#  - &maxevt 10000000
 #  - &input blddata/run@NUM@.bld
 #  - &input /home/e483/data/run2005.bld
   - &output output/hoge.root
@@ -11,11 +12,28 @@ Anchor:
 Processor:
   - name: timer
     type: art::TTimerProcessor
+
+#  - name: MyTStreamingEventStore
+#    type: art::TStreamingEventStore
+#    parameter:
+#      EventHeaderName: eventheader@DIR@  # [TString] the name of event header
+#      FileName: 
+#        - "rawdata/00/run@NUM@.dat"  # [StringVec_t] names of input files
+#        - "rawdata/01/run@NUM@.dat"  # [StringVec_t] names of input files
+#        - "rawdata/02/run@NUM@.dat"  # [StringVec_t] names of input files
+#        - "rawdata/03/run@NUM@.dat"  # [StringVec_t] names of input files
+#        - "rawdata/04/run@NUM@.dat"  # [StringVec_t] names of input files
+#      MaxFrames: 0  # [Int_t] maximum number of frames (no limit if 0)
+#      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
+#      RunHeadersName: runheader  # [TString] the name of output array for run headers
+#      SegmentedData: segdata  # [TString] The name of output segmented data
+#      StartFrame: 0  # [Int_t] start point number of frame
+#      Verbose: 0  # [Int_t] verbose level (default 1 : non quiet)
   - include:
       name: strevtall.inc.yaml
       replace:
         MAX: *maxevt
-
+        NUM: @NUM@
   - name: mapper
     type: art::TMappingProcessor
     parameter:
@@ -25,7 +43,7 @@ Processor:
   - include:
       name: pla_gr.tmpl.yaml
       replace:
-        CATID: 23
+        CATID: 21
         VMEFERA: str
   - include: vdc_gr_str.yaml
   - name: MyTRawDataMappingProcessor_HBD
@@ -35,14 +53,32 @@ Processor:
       Input: catdata  # [TString] The name of input categorized data
       Output: hbd  # [TString] The name of output collection
       OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
-      OutputClass: art::TStreamingHeartBeatDelimiter  # [TString] The name of output class
-      Verbose: 0  # [Int_t] verbose level (default 1 : non quiet)
+      OutputClass: art::TStreamingHeartBeatDelimiter  # [TString] The name of outp      Verbose: 0  # [Int_t] verbose level (default 1 : non quiet)
+#  - name: MyTRawDataMappingProcessor_SPF
+#    type: art::TRawDataMappingProcessor
+#    parameter:
+#      CatID: 301  # [Int_t] Category ID of rawdata
+#      Input: catdata  # [TString] The name of input categorized data
+#      Output: spl  # [TString] The name of output collection
+#      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
+#      OutputClass: art::TStreamingSpillDelimiter  # [TString] The name of output class
+#      Verbose: 0  # [Int_t] verbose level (default 1 : non quiet)
+#  - name: proc_rf
+#    type: art::TTimingChargeMappingProcessor
+#    parameter:
+#      CatID:              401
+#      ChargeType:         0
+#      ChargeTypeID:       0
+#      TimingTypeID:       0
+#      OutputCollection:   rf
+#      OutputTransparency: 0
+#
 #  - name: proc_pla_gr_@VMEFERA@_raw
 #    type: art::TTimingChargeMappingProcessor
 #    parameter:
 #      CatID:              23
 #      ChargeType:         1
-#      ChargeTypeID:         1
+#      ChargeTypeID:       1
 #      TimingTypeID:       0
 #      OutputCollection:   pla_gr_raw_lr
 #      OutputTransparency: 0
@@ -55,6 +91,25 @@ Processor:
 #        - pla_gr_lr_1r
 #        - pla_gr_lr_2l
 #        - pla_gr_lr_2r
+#  - name: MyTGateArrayInitializer
+#    type: art::TGateArrayInitializer
+#    parameter:
+#      OutputTransparency: 1  # [Bool_t] Output is persistent if false (default)
+#      Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
+#  - name: MyTTreeFormulaGateProcessor
+#    type: art::TTreeFormulaGateProcessor
+#    parameter:
+#      Definitions: ["pla; pla_gr_str_1l@.GetEntriesFast()> 0 || pla_gr_str_1r@.GetEntriesFast() > 0"]  # [StringVec_t] gate definitions
+##      Definitions: ["pla; pla_gr_str_2l@.GetEntriesFast()> 0 || pla_gr_str_2r@.GetEntriesFast() > 0"]  # [StringVec_t] gate definitions
+#      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
+#      Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
+#  - name: MyTGateStopProcessor
+#    type: art::TGateStopProcessor
+#    parameter:
+#      GateName: pla  # [TString] name of gate to test
+#      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
+#      StopIf: 0  # [Int_t] stop analysis if gate is (0) false, (1) true
+#      Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
 
 #  - name: hist_pla_gr
 #    type: art::TTreeProjectionProcessor

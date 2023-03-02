@@ -22,8 +22,8 @@ Processor:
     type: art::TTimingChargeMappingProcessor
     parameter:
       CatID:              @CATID@
-      ChargeType:         1
-      ChargeTypeID:       1
+      ChargeType:         0
+      ChargeTypeID:       0
       TimingTypeID:       0
       OutputCollection:   pla_gr_@VMEFERA@_raw
       OutputTransparency: 0
@@ -53,6 +53,7 @@ Processor:
       InputCollection1:   pla_gr_@VMEFERA@_1l
       InputCollection2:   pla_gr_@VMEFERA@_1r
       OutputCollection:   pla_gr_@VMEFERA@_1
+      ValidTimeRange: [-100, 100, 0]  # [FloatVec_t] [min,max,offset] => Tmin = offset + min etc. ignored if min == max
       OutputTransparency: 0
 
   - name: proc_pla_gr_@VMEFERA@_2
@@ -61,6 +62,7 @@ Processor:
       InputCollection1:   pla_gr_@VMEFERA@_2l
       InputCollection2:   pla_gr_@VMEFERA@_2r
       OutputCollection:   pla_gr_@VMEFERA@_2
+      ValidTimeRange: [-100, 100, 0]  # [FloatVec_t] [min,max,offset] => Tmin = offset + min etc. ignored if min == max
       OutputTransparency: 0
 
 

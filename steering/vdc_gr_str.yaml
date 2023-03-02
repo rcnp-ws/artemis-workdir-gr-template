@@ -80,10 +80,9 @@ Processor:
   - name: proc_vdc_gr_plane
     type: art::TVDCPlaneProcessor
     parameter:
-      InputCollection: vdc_gr_cal
+      InputCollection: vdc_gr_dt
       MWDCName: vdc_gr
       SortType: 0
-      V1190: 2
       ConverterList:
         - VDC_PRM_GR_X1
         - VDC_PRM_GR_U1
@@ -136,7 +135,6 @@ Processor:
         - vdc_gr_u2
       OutputCollection: vdc_gr
       OutputTransparency: 0
-     
 
 # calibration processor
 
