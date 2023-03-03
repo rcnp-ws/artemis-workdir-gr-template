@@ -1,54 +1,65 @@
 anchor:
   - &maxevt @MAX@
-
+  - &num @NUM@
 Processor:
   - include:
       name: strevt.inc.yaml
       replace:
         MAX: *maxevt
         DIR: 00
+        NUM: *num
   - include:
       name: strevt.inc.yaml
       replace:
         MAX: *maxevt
         DIR: 01
+        NUM: *num
   - include:
       name: strevt.inc.yaml
       replace:
         MAX: *maxevt
         DIR: 02
+        NUM: *num
   - include:
       name: strevt.inc.yaml
       replace:
         MAX: *maxevt
         DIR: 03
+        NUM: *num
   - include:
       name: strevt.inc.yaml
       replace:
         MAX: *maxevt
         DIR: 04
+        NUM: *num
   - include:
       name: strevt.inc.yaml
       replace:
         MAX: *maxevt
         DIR: 05
+        NUM: *num
   - include:
       name: strevt.inc.yaml
       replace:
         MAX: *maxevt
         DIR: 06
+        NUM: *num
   - include:
       name: strevt.inc.yaml
       replace:
         MAX: *maxevt
         DIR: 07
+        NUM: *num
   - include:
       name: strevt.inc.yaml
       replace:
         MAX: *maxevt
         DIR: 08
+        NUM: *num
   - include:
       name: strevt.inc.yaml
       replace:
         MAX: *maxevt
         DIR: 09
+        NUM: *num
+

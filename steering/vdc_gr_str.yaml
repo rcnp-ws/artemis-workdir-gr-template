@@ -137,6 +137,21 @@ Processor:
         - vdc_gr_u2
       OutputCollection: vdc_gr
       OutputTransparency: 0
+  - name: proc_tracking_gr
+    type: art::TVDCTrackingProcessor
+    parameter:
+      InputCollection:
+        - vdc_gr_clust_x1
+        - vdc_gr_clust_u1
+        - vdc_gr_clust_x2
+        - vdc_gr_clust_u2
+      InputCollection2:
+        - vdc_gr_x1
+        - vdc_gr_u1
+        - vdc_gr_x2
+        - vdc_gr_u2
+      OutputCollection: vdc_gr
+      OutputTransparency: 0
 
 # calibration processor
 
