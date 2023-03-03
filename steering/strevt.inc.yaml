@@ -3,7 +3,8 @@ Processor:
     type: art::TStreamingEventStore
     parameter:
       EventHeaderName: eventheader@DIR@  # [TString] the name of event header
-      FileName: ["rawdata/@DIR@/run000050.dat"]  # [StringVec_t] names of input files
+      FileName: ["/np1a/v05/d202302a/data/@DIR@/run000005.dat"]  # [StringVec_t] names of input files
+#      FileName: ["rawdata/@DIR@/run000050.dat"]  # [StringVec_t] names of input files
       MaxFrames: @MAX@  # [Int_t] maximum number of frames (no limit if 0)
       OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
       RunHeadersName: runheader@DIR@  # [TString] the name of output array for run headers

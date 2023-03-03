@@ -3,7 +3,7 @@
 # lastest update : 2022.07.01 by Y.HIJIKATA
 
 alias:
-  - &timegate [-360,-80]
+  - &timegate [80,450]
 
 Processor:
 
@@ -54,6 +54,7 @@ Processor:
     type: art::TTimingChargeMappingProcessor
     parameter:
       CatID: 51
+      ChargeType: 2
       TimingTypeID: 0
       TrailingComesFirst: 0
       OutputCollection: vdc_gr_raw
@@ -76,7 +77,7 @@ Processor:
       UseMultipleStartTiming: 1
       UseStartAsTimestamp: 1  # [Int_t] timestamp is start (if 1) or end (if 0)
       StartTimingDetID: 0  # [Int_t] detID of reference timing source (if -1 use any id)      
-      ValidTimeRange: [-1000, 1000, 0]  # [vector<Double_t>] [min,max,offset] => Tmin = offset + min etc. ignored if min == max
+      ValidTimeRange: [100, 450, 0]  # [vector<Double_t>] [min,max,offset] => Tmin = offset + min etc. ignored if min == max
   - name: proc_vdc_gr_plane
     type: art::TVDCPlaneProcessor
     parameter:
@@ -111,6 +112,7 @@ Processor:
       InputCollection: vdc_gr_u1
       OutputCollection: vdc_gr_clust_u1
       OutputTransparency: 0
+      Verbose: 0
   - name: proc_vdc_gr_cluster_u2
     type: art::TVDCClusterizationProcessor
     parameter:

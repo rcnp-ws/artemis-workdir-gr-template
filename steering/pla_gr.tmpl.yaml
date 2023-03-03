@@ -16,13 +16,13 @@ Processor:
     parameter:
       Name:     prm_pla_gr_@VMEFERA@_ch2MeV
       Type:     art::TAffineConverter
-      FileName: prm/pla/pla_gr_@VMEFERA@_ch2MeV.dat
+      FileName: prm/pla/pla_gr_@VMEFERA@_ch2ns.dat
 
   - name: proc_pla_gr_@VMEFERA@_raw
     type: art::TTimingChargeMappingProcessor
     parameter:
       CatID:              @CATID@
-      ChargeType:         0
+      ChargeType:         2
       ChargeTypeID:       0
       TimingTypeID:       0
       OutputCollection:   pla_gr_@VMEFERA@_raw
@@ -53,7 +53,7 @@ Processor:
       InputCollection1:   pla_gr_@VMEFERA@_1l
       InputCollection2:   pla_gr_@VMEFERA@_1r
       OutputCollection:   pla_gr_@VMEFERA@_1
-      ValidTimeRange: [-100, 100, 0]  # [FloatVec_t] [min,max,offset] => Tmin = offset + min etc. ignored if min == max
+      ValidTimeRange: [-10, 20, 0]  # [FloatVec_t] [min,max,offset] => Tmin = offset + min etc. ignored if min == max
       OutputTransparency: 0
 
   - name: proc_pla_gr_@VMEFERA@_2
