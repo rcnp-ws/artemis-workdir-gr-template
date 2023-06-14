@@ -1,0 +1,9 @@
+group:
+  - name: test
+    title: test
+    contents:
+      - name: htest
+        title: test hist
+        x: ["pla_gr_str_1.fQ1",100,0.,300]
+        y: ["pla_gr_str_1.fQ2",100,0.,300]
+        

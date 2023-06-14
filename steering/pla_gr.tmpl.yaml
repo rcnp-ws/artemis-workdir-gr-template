@@ -22,8 +22,8 @@ Processor:
     type: art::TTimingChargeMappingProcessor
     parameter:
       CatID:              @CATID@
-      ChargeType:         2
-      ChargeTypeID:       0
+      ChargeType:         1
+      ChargeTypeID:       1
       TimingTypeID:       0
       OutputCollection:   pla_gr_@VMEFERA@_raw
       OutputTransparency: 0

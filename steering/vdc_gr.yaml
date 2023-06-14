@@ -3,7 +3,9 @@
 # lastest update : 2022.07.01 by Y.HIJIKATA
 
 alias:
-  - &timegate [-200,100]
+#  - &timegate [-200,100]
+#  - &timegate [-700,-350]
+  - &timegate [-350,150]
 
 Processor:
 

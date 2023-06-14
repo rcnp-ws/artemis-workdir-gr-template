@@ -1,0 +1,43 @@
+# file : chk.yaml 
+# date : 2022.07.01 by Y.HIJIKATA
+# lastest update : 2022.07.01 by Y.HIJIKATA
+
+Anchor:
+#  - &input blddata/run@NUM@.bld
+#  - &input /home/e483/data/run2005.bld
+  - &input /np1a/v05/d202304a/data/run@NUM@.bld
+  - &output /home/spadi/d202304a/analysis/run@NUM@.root
+
+Processor:
+  - name: timer
+    type: art::TTimerProcessor
+  - name: skip
+    type: art::TEventSkipProcessor
+    parameter:
+      MaxNumEvent: 10000
+  - name: es_rcnp
+    type: art::TRCNPEventStore_ts
+    parameter:
+      OutputTransparency: 1
+      InputFiles:
+         - *input
+  - name: mapper
+    type: art::TMappingProcessor
+    parameter:
+      OutputTransparency: 1
+      MapConfig: mapper_tamidaq.conf
+
+  - include: tref.yaml
+  - include: pla_gr.yaml
+  - include: vdc_gr.yaml
+
+  - name: hist_pla_gr
+    type: art::TTreeProjectionProcessor
+    parameter:
+      Type: art::TTreeProjection
+      FileName: hist/pla/pla_gr.hist.yaml
+
+  - name: outputtree
+    type: art::TOutputTreeProcessor
+    parameter:
+      FileName: *output
