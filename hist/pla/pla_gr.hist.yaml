@@ -1,11 +1,4 @@
 include:
-  - name: hist/pla/pla_gr.tmpl.hist.yaml
-    replace: 
-      VMEFERA: vme
-
-  - name: hist/pla/pla_gr.tmpl.hist.yaml
-    replace: 
-      VMEFERA: fera
 
 
 

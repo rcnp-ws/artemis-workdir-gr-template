@@ -1,0 +1,7 @@
+include:
+  - name: hist/pla/pla_gr.tmpl.hist.yaml
+    replace: 
+      TYPE: str
+  - name: hist/vdc/vdc.hist.yaml
+    replace:
+    

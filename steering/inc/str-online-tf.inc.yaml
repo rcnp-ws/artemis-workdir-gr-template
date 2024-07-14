@@ -1,0 +1,15 @@
+Processor:
+  - name: MyTStreamingEventStore
+    type: art::v1::TStreamingEventStore
+    parameter:
+      EventHeaderName: eventheader  # [TString] the name of event header
+      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
+      RunHeadersName: runheader  # [TString] the name of output array for run headers
+      SegmentedData: segdata  # [TString] The name of output segmented data
+      StartFrame: 0  # [Int_t] start point number of frame
+      IsOnline: 1  # [Int_t] 0:offline (default), 1:online
+      DeviceID: TimeFrameSlicerByLogicTiming  # [TString] nestdaq process name
+      ChannelName: dqm  # [TString] channel name of nestdaq process
+      RedisURI: tcp://vmeserver1:6379/0  # [TString] redis server uri
+      Verbose: 0  # [Int_t] verbose level (default 1 : non quiet)
+      

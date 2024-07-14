@@ -1,0 +1,31 @@
+# file : rf.inc.yaml
+# Created       : 2024-07-13 11:52:11 JST
+# Last Modified : 2024-07-13 22:24:46 JST
+# Author        : Shinsuke OTA <ota@rcnp.osaka-u.ac.jp> @2024
+
+Anchor:
+
+Processor:
+  - name: proc_gr_prm_ch2ns
+    type: art::TParameterArrayLoader
+    parameter:
+      Name:     prm_rf_ch2ns
+      Type:     art::TAffineConverter
+      FileName: prm/rf/ch2ns.dat
+  - name: proc_rf_raw
+    type: art::TTimingChargeMappingProcessor
+    parameter:
+      CatID:              @CATID@
+      ChargeType:         2
+      ChargeTypeID:       0
+      TimingTypeID:       0
+      OutputCollection:   rf_raw
+      OutputTransparency: 0
+  - name: proc_rf_cal
+    type: art::TTimingChargeCalibrationProcessor
+    parameter:
+      InputCollection: rf_raw
+      OutputCollection: rf
+      OutputTransparency: 0
+      TimingConverterArray: prm_rf_ch2ns
+      ChargeConverterArray: prm_rf_ch2ns

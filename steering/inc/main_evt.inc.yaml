@@ -1,0 +1,30 @@
+# file : main.inc.yaml
+# Created       : 2024-07-13 11:52:11 JST
+# Last Modified : 2024-07-14 10:29:16 JST
+# Author        : Shinsuke OTA <ota@rcnp.osaka-u.ac.jp> @2024
+
+Processor:
+  - name: timer
+    type: art::TTimerProcessor
+  - name: mapper
+    type: art::TMappingProcessor
+    parameter:
+      OutputTransparency: 1
+      MapConfig: conf/mapper.conf
+  - include:
+      name: ./inc/pla_gr.inc.yaml
+      replace:
+        CATID: 21
+        TYPE: str
+        PS1_TR: @PS1_TR@
+        PS2_TR: @PS2_TR@
+        PS3_TR: @PS3_TR@
+  - include:
+      name: ./inc/vdc_gr_str.inc.yaml
+      replace:
+        VDC_TR_MIN: @VDC_TR_MIN@
+        VDC_TR_MAX: @VDC_TR_MAX@
+  - include:
+      name: ./inc/rf.inc.yaml
+      replace:
+        CATID: 401

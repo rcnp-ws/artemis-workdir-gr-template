@@ -1,0 +1,79 @@
+alias:
+  Mx1 : "vdc_gr_x1@.GetEntriesFast()"
+  Mx2 : "vdc_gr_x2@.GetEntriesFast()"
+  Mu1 : "vdc_gr_u1@.GetEntriesFast()"
+  Mu2 : "vdc_gr_u2@.GetEntriesFast()"
+  qx1ave : "Sum$(vdc_gr_x1.fCharge)/Mx1"
+  qx2ave : "Sum$(vdc_gr_x2.fCharge)/Mx2"
+  qu1ave : "Sum$(vdc_gr_u1.fCharge)/Mu1"
+  qu2ave : "Sum$(vdc_gr_u2.fCharge)/Mu2"
+
+anchor:
+  - &axisX ["vdc_gr.fX",100,-600.,600]
+  - &axisXf ["vdc_gr.GetX(400)",100,-600.,600]
+  - &axisA ["vdc_gr.fA",100,-1.,1.]
+  - &axisY ["vdc_gr.fY",100,-600.,600]
+  - &axisYf ["vdc_gr.GetY(400)",100,-600.,600]
+  - &axisB ["vdc_gr.fA",100,-1.,1.]
+  - &qx1ave ["qx1ave",100,0.,200]
+  - &qx2ave ["qx2ave",100,0.,200]
+  - &qu1ave ["qu1ave",100,0.,200]
+  - &qu2ave ["qu2ave",100,0.,200]
+group:
+  - name: vdc
+    title: vdc
+    contents:
+      - name: hVDCID
+        title: VDC ID
+        x: ["vdc_gr_raw.fID",800,-0.5,799.5]
+      - name: hVDCIDTiming
+        title: VDC ID vs Timing
+        x: ["vdc_gr_raw.fID",800,-0.5,799.5]
+        y: ["vdc_gr_raw.fTiming",200,0.,524.288e3]
+      - name: hVDCIDCharge
+        title: VDC ID vs Charge
+        x: ["vdc_gr_raw.fID",800,-0.5,799.5]
+        y: ["vdc_gr_raw.fCharge",200,0,200.]
+      - name: hVDCID_DT
+        title: VDC ID vs Drift Time
+        x: ["vdc_gr_dt.fID",800,-0.5,799.5]
+        y: ["vdc_gr_dt.fTiming",200,-300,100.]
+      - name: MultVdcX1
+        title: multiplicity vdc x1
+        x: ["vdc_gr_x1@.GetEntriesFast()",20,-0.5,19.5]
+      - name: MultVdcU1
+        title: multiplicity vdc u1
+        x: ["vdc_gr_u1@.GetEntriesFast()",20,-0.5,19.5]
+      - name: MultVdcX2
+        title: multiplicity vdc x2
+        x: ["vdc_gr_x2@.GetEntriesFast()",20,-0.5,19.5]
+      - name: MultVdcU2
+        title: multiplicity vdc u2
+        x: ["vdc_gr_u2@.GetEntriesFast()",20,-0.5,19.5]
+      - name: Qx1ave_Qx2ave
+        title: Qx2aev vs Qx1ave
+        cut: Mx1 > 0 && Mx2 > 0
+        x: *qx1ave
+        y: *qx2ave
+      - name: Qu1ave_Qu2ave
+        title: Qu2aev vs Qu1ave
+        cut: Mu1 > 0 && Mu2 > 0
+        x: *qu1ave
+        y: *qu2ave
+      - name: hXA
+        title: A vs X
+        x: *axisX
+        y: *axisA
+      - name: hYB
+        title: B vs Y
+        x: *axisY
+        y: *axisB
+      - name: hXfA
+        title: A vs Xf
+        x: *axisXf
+        y: *axisA
+      - name: hYfB
+        title: B vs Yf
+        x: *axisYf
+        y: *axisB
+  

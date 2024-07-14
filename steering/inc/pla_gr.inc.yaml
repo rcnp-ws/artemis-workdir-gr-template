@@ -1,0 +1,78 @@
+# file : pla_gr.tmpl.yaml 
+# date : 2022.07.01 by Y.HIJIKATA
+# lastest update : 2022.07.01 by Y.HIJIKATA
+
+Processor:
+
+  - name: proc_pla_gr_@TYPE@_prm_ch2ns
+    type: art::TParameterArrayLoader
+    parameter:
+      Name:     prm_pla_gr_@TYPE@_ch2ns
+      Type:     art::TAffineConverter
+      FileName: prm/pla/pla_gr_@TYPE@_ch2ns.dat
+
+  - name: proc_pla_gr_@TYPE@_prm_ch2MeV
+    type: art::TParameterArrayLoader
+    parameter:
+      Name:     prm_pla_gr_@TYPE@_ch2MeV
+      Type:     art::TAffineConverter
+      FileName: prm/pla/pla_gr_@TYPE@_ch2ns.dat
+
+  - name: proc_pla_gr_@TYPE@_raw
+    type: art::TTimingChargeMappingProcessor
+    parameter:
+      CatID:              @CATID@
+      ChargeType:         2
+      ChargeTypeID:       0
+      TimingTypeID:       0
+      OutputCollection:   pla_gr_@TYPE@_raw
+      OutputTransparency: 0
+
+  - name: proc_pla_gr_@TYPE@_calib
+    type: art::TTimingChargeCalibrationProcessor
+    parameter:
+      InputCollection:      pla_gr_@TYPE@_raw
+      TimingConverterArray: prm_pla_gr_@TYPE@_ch2ns
+      ChargeConverterArray: prm_pla_gr_@TYPE@_ch2MeV
+      OutputCollection:     pla_gr_@TYPE@_cal
+      OutputTransparency:   0
+
+  - name: proc_pla_gr_@TYPE@_separater
+    type: art::TSeparateOutputProcessor
+    parameter:
+      InputCollection: pla_gr_@TYPE@_cal
+      OutputCollections:
+        - pla_gr_@TYPE@_1l
+        - pla_gr_@TYPE@_1r
+        - pla_gr_@TYPE@_2l
+        - pla_gr_@TYPE@_2r
+        - pla_gr_@TYPE@_3l
+        - pla_gr_@TYPE@_3r
+
+  - name: proc_pla_gr_@TYPE@_1
+    type: art::TTwoSidedPlasticCalibrationProcessor
+    parameter:
+      InputCollection1:   pla_gr_@TYPE@_1l
+      InputCollection2:   pla_gr_@TYPE@_1r
+      OutputCollection:   pla_gr_@TYPE@_1
+      ValidTimeRange: @PS1_TR@  # [FloatVec_t] [min,max,offset] => Tmin = offset + min etc. ignored if min == max
+      OutputTransparency: 0
+
+  - name: proc_pla_gr_@TYPE@_2
+    type: art::TTwoSidedPlasticCalibrationProcessor
+    parameter:
+      InputCollection1:   pla_gr_@TYPE@_2l
+      InputCollection2:   pla_gr_@TYPE@_2r
+      OutputCollection:   pla_gr_@TYPE@_2
+      ValidTimeRange: @PS2_TR@  # [FloatVec_t] [min,max,offset] => Tmin = offset + min etc. ignored if min == max
+      OutputTransparency: 0
+
+  - name: proc_pla_gr_@TYPE@_3
+    type: art::TTwoSidedPlasticCalibrationProcessor
+    parameter:
+      InputCollection1:   pla_gr_@TYPE@_3l
+      InputCollection2:   pla_gr_@TYPE@_3r
+      OutputCollection:   pla_gr_@TYPE@_3
+      ValidTimeRange: @PS3_TR@  # [FloatVec_t] [min,max,offset] => Tmin = offset + min etc. ignored if min == max
+      OutputTransparency: 0
+      

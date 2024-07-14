@@ -5,12 +5,10 @@
 alias:
 #  - &timegate [-200,100]
 #  - &timegate [-700,-350]
-  - &timegate [-350,150]
+  - &timegate [@VDC_TR_MIN@, @VDC_TR_MAX@]
 
 Processor:
-
 # parameter laod
-
   - name: proc_vdc_gr_prm_geo
     type: art::TParameterLoader
     parameter:
@@ -54,15 +52,16 @@ Processor:
     parameter:
       Name:     prm_vdc_gr_ch2ns
       Type:     art::TAffineConverter
-      FileName: prm/vdc_gr/vdc_gr.ch2ns.dat
+      FileName: prm/vdc_gr/vdc_gr_str.ch2ns.dat
 
 # load & plane calib
-
   - name: proc_vdc_gr_raw
     type: art::TTimingChargeMappingProcessor
     parameter:
       CatID: 51
-      TimingTypeID: 0
+      ChargeType:         2
+      ChargeTypeID:       0
+      TimingTypeID:       0
       TrailingComesFirst: 0
       OutputCollection: vdc_gr_raw
       OutputTransparency: 0
@@ -80,11 +79,11 @@ Processor:
       InputCollection: vdc_gr_cal
       MaxDetID: 800
       OutputCollection: vdc_gr_dt
-      StartTimingCollection: pla_gr_vme_1
+      StartTimingCollection: pla_gr_str_1
       UseMultipleStartTiming: 1
       UseStartAsTimestamp: 1  # [Int_t] timestamp is start (if 1) or end (if 0)
       StartTimingDetID: 0  # [Int_t] detID of reference timing source (if -1 use any id)      
-      ValidTimeRange: [-1000, 1000, 0]  # [vector<Double_t>] [min,max,offset] => Tmin = offset + min etc. ignored if min == max
+      ValidTimeRange: [@VDC_TR_MIN@,@VDC_TR_MAX@,0.]  # [vector<Double_t>] [min,max,offset] => Tmin = offset + min etc. ignored if min == max
   - name: proc_vdc_gr_plane
     type: art::TVDCPlaneProcessor
     parameter:
@@ -100,7 +99,7 @@ Processor:
       GR_OR_LAS: 0
 
 # cluster analysis
-
+# require at least three hits in each plane
   - name: proc_vdc_gr_cluster_x1
     type: art::TVDCClusterizationProcessor
     parameter:
@@ -127,24 +126,6 @@ Processor:
       OutputTransparency: 0
 
 # tracking
-
-  - name: proc_tracking_gr
-    type: art::TVDCTrackingProcessor_gr
-    parameter:
-      InputCollection:
-        - vdc_gr_clust_x1
-        - vdc_gr_clust_u1
-        - vdc_gr_clust_x2
-        - vdc_gr_clust_u2
-      InputCollection2:
-        - vdc_gr_x1
-        - vdc_gr_u1
-        - vdc_gr_x2
-        - vdc_gr_u2
-      OutputCollection: vdc_gr
-      OutputTransparency: 0
-
-
   - name: proc_tracking_gr
     type: art::TVDCTrackingProcessor
     parameter:
@@ -153,7 +134,7 @@ Processor:
         - vdc_gr_clust_u1
         - vdc_gr_clust_x2
         - vdc_gr_clust_u2
-      OutputCollection: vdc_gr_m
+      OutputCollection: vdc_gr
       OutputTransparency: 0
 
 

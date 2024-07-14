@@ -17,8 +17,8 @@
    gSystem->SetIncludePath(incpath);
 
    // load libraries
-   gSystem->Load("libuser");
-//   gSystem->Load("libCAT");
+   gSystem->Load("libartshare");
+   gSystem->Load("libCAT");
    //gSystem->Load("{liborig}"); // when use original library
 
    TCatCmdFactory *cf = TCatCmdFactory::Instance();
@@ -94,14 +94,14 @@
    }
    {
 
-      art::TModuleDecoderFactory *df = art::TModuleDecoderFactory::Instance();
+//      art::TModuleDecoderFactory *df = art::TModuleDecoderFactory::Instance();
 
-      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoderV1190_rcnp)");
-      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoder3377)");
-      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoderTS)");
-      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoderFERA)");
-      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoderFERET)");
-      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoderMXDC32_rcnp)");
+//      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoderV1190_rcnp)");
+//      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoder3377)");
+//      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoderTS)");
+//      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoderFERA)");
+//      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoderFERET)");
+//      gInterpreter->ProcessLine("art::TModuleDecoderFactory::Instance()->Register(new art::TModuleDecoderMXDC32_rcnp)");
 
 //      
 //      art::TModuleDecoderFactory *df = art::TModuleDecoderFactory::Instance();

@@ -1,0 +1,13 @@
+Processor:
+  - name: MyTStreamingEventStore
+    type: art::v1::TStreamingEventStore
+    parameter:
+      EventHeaderName: eventheader  # [TString] the name of event header
+      FileName: ["rawdata/@DIR@/00/run@NUM@.dat"]  # [StringVec_t] names of input files
+      MaxFrames: @MAX@  # [Int_t] maximum number of frames (no limit if 0)
+      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
+      RunHeadersName: runheader  # [TString] the name of output array for run headers
+      SegmentedData: segdata  # [TString] The name of output segmented data
+      StartFrame: 0  # [Int_t] start point number of frame
+      Verbose: 0  # [Int_t] verbose level (default 1 : non quiet)
+      
