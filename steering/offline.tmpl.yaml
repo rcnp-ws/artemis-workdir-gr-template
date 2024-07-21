@@ -13,9 +13,9 @@ Processor:
   - include:
       name: ./inc/main_evt.inc.yaml
       replace:
-        PS1_TR: [-10.,10,0]
-        PS2_TR: [-10.,10,0]
-        PS3_TR: [-10.,10,0]
+        PS1_TR: [-50.,50,0]
+        PS2_TR: [-50.,50,0]
+        PS3_TR: [-50.,50,0]
         VDC_TR_MIN: -250.
         VDC_TR_MAX: 50.
   - name: MyTTreeProjectionProcessor

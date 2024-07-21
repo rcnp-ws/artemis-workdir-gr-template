@@ -20,6 +20,14 @@ Processor:
         PS2_TR: @PS2_TR@
         PS3_TR: @PS3_TR@
   - include:
+      name: ./inc/pla_gr.inc.yaml
+      replace:
+        CATID: 22
+        TYPE: att
+        PS1_TR: @PS1_TR@
+        PS2_TR: @PS2_TR@
+        PS3_TR: @PS3_TR@
+  - include:
       name: ./inc/vdc_gr_str.inc.yaml
       replace:
         VDC_TR_MIN: @VDC_TR_MIN@

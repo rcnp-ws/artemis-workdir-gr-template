@@ -2,6 +2,9 @@ include:
   - name: hist/pla/pla_gr.tmpl.hist.yaml
     replace: 
       TYPE: str
+  - name: hist/pla/pla_gr.tmpl.hist.yaml
+    replace: 
+      TYPE: att
   - name: hist/vdc/vdc.hist.yaml
     replace:
     

@@ -11,7 +11,7 @@ include:
       NUM: 1
       TMIN:  0
       TMAX:  524.288e3
-      QMAX:  1000
+      QMAX:  200
       TDIFFMIN: -50
       TDIFFMAX:  50
       QDIFFMIN: -200
@@ -23,7 +23,7 @@ include:
       NUM: 2
       TMIN:  0
       TMAX:  524.288e3
-      QMAX:  1000
+      QMAX:  200
       TDIFFMIN: -50
       TDIFFMAX:  50
       QDIFFMIN: -200

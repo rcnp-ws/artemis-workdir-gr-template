@@ -84,7 +84,7 @@
    cmdsave->AddFormat("pdf",1);
    cf->Register(cmdsave);
    art::TCmdPrint *pri = new art::TCmdPrint;
-   pri->SetOption("-o fit-to-page");
+   pri->SetOption("-Prcc2570a -o fit-to-page");
    cf->Register(pri);
 
    {

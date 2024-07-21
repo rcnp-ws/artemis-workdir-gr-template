@@ -11,10 +11,10 @@ alias:
 anchor:
   - &axisX ["vdc_gr.fX",100,-600.,600]
   - &axisXf ["vdc_gr.GetX(400)",100,-600.,600]
-  - &axisA ["vdc_gr.fA",100,-1.,1.]
+  - &axisA ["vdc_gr.fA",100,-0.1,0.1]
   - &axisY ["vdc_gr.fY",100,-600.,600]
   - &axisYf ["vdc_gr.GetY(400)",100,-600.,600]
-  - &axisB ["vdc_gr.fA",100,-1.,1.]
+  - &axisB ["vdc_gr.fB",100,-0.1,0.1]
   - &qx1ave ["qx1ave",100,0.,200]
   - &qx2ave ["qx2ave",100,0.,200]
   - &qu1ave ["qu1ave",100,0.,200]
