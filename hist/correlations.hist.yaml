@@ -1,0 +1,31 @@
+anchor:
+  - &grx [vdc_gr.fX, 240, -600.,600.]
+
+group:
+  - name: psq_grx
+    title: Q_PS vs GRX
+    contents: 
+      - name: ps1l_x
+        title: Q_PS1L vs GRX
+        x: *grx
+        y: ["pla_gr_att_1.fQ1", 200, 0.,500.]
+      - name: ps1r_x
+        title: Q_PS1R vs GRX
+        x: *grx
+        y: ["pla_gr_att_1.fQ2", 200, 0.,500.]
+      - name: ps2l_x
+        title: Q_PS2L vs GRX
+        x: *grx
+        y: ["pla_gr_att_2.fQ1", 200, 0.,500.]
+      - name: ps2r_x
+        title: Q_PS2R vs GRX
+        x: *grx
+        y: ["pla_gr_att_2.fQ2", 200, 0.,500.]
+      - name: ps3l_x
+        title: Q_PS3L vs GRX
+        x: *grx
+        y: ["pla_gr_att_3.fQ1", 200, 0.,500.]
+      - name: ps3r_x
+        title: Q_PS3L vs GRX
+        x: *grx
+        y: ["pla_gr_att_3.fQ2", 200, 0.,500.]

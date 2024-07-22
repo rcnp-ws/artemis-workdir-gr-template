@@ -1,0 +1,2 @@
+"PUBLISH" "daqctl" "{\n    \"command\": \"change_state\",\n    \"value\": \"STOP\",\n    \"services\": [\n        \"all\"\n    ],\n    \"instances\": [\n        \"all\"\n    ]\n}\n"
+ 

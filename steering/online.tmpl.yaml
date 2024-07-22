@@ -1,5 +1,21 @@
 Processor:
   - include: ./inc/str-online-tf.inc.yaml
-  - include: ./inc/main.inc.yaml
+  - include:
+      name: ./inc/main_evt.inc.yaml
+      replace:
+        PS1_TR: [-50.,50,0]
+        PS2_TR: [-50.,50,0]
+        PS3_TR: [-50.,50,0]
+        VDC_TR_MIN: -250.
+        VDC_TR_MAX: 50.
+  - name: MyTTreeProjectionProcessor
+    type: art::TTreeProjectionProcessor
+    parameter:
+      FileName: hist/basic.hist.yaml  # [TString] input filename
+#      OutputFilename: *histout  # [TString] output filename
+      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
+      Replace: ""  # [TString] Replacement of macro
+      Type: art::TTreeProjection  # [TString] type(class) of parameter
+      Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
 
     

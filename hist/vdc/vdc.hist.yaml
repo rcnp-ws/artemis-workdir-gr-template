@@ -12,8 +12,8 @@ anchor:
   - &axisX ["vdc_gr.fX",100,-600.,600]
   - &axisXf ["vdc_gr.GetX(400)",100,-600.,600]
   - &axisA ["vdc_gr.fA",100,-0.1,0.1]
-  - &axisY ["vdc_gr.fY",100,-600.,600]
-  - &axisYf ["vdc_gr.GetY(400)",100,-600.,600]
+  - &axisY ["vdc_gr.fY",160,-40.,40]
+  - &axisYf ["vdc_gr.GetY(400)",160,-40.,40]
   - &axisB ["vdc_gr.fB",100,-0.1,0.1]
   - &qx1ave ["qx1ave",100,0.,200]
   - &qx2ave ["qx2ave",100,0.,200]
@@ -76,4 +76,12 @@ group:
         title: B vs Yf
         x: *axisYf
         y: *axisB
+      - name: hYA
+        title: Y vs A
+        x: *axisA
+        y: *axisY
+      - name: hX_cA_cY
+        title: Xf
+        cut: abs(vdc_gr.fA + 0.01) < 0.005 && abs(vdc_gr.fY) < 10
+        x: ["vdc_gr.fX",1200,-600.,600]
   
