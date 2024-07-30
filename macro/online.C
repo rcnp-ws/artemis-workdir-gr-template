@@ -4,8 +4,8 @@ TF1* Fit(TH1 *h1)
 {
    int ibin = h1->GetMaximumBin();
    double maxx = h1->GetXaxis()->GetBinCenter(ibin);
-   h1->GetXaxis()->SetRangeUser(maxx-20.,maxx+20); 
-   h1->Fit("gaus","L","",maxx-10,maxx+10);
+   h1->GetXaxis()->SetRangeUser(maxx-30.,maxx+30); 
+   h1->Fit("gaus","L","",maxx-30,maxx+30);
    return h1->GetFunction("gaus");
 }
 
@@ -50,8 +50,8 @@ void autoRun() {
 void online () {
 
    THttpServer *server = new THttpServer("http:5955");
-   server->RegisterCommand("/autoRun","autoRun()");
-   server->RegisterCommand("/expert/resetAllHistogram", "resetAllHistogram()");
+   server->RegisterCommand("/expert/autoRun","autoRun()");
+   server->RegisterCommand("/resetAllHistogram", "resetAllHistogram()");
    server->RegisterCommand("/expert/startDaq", "startDaq()");
    server->RegisterCommand("/expert/stopDaq", "stopDaq()");
 

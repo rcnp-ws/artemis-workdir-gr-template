@@ -1,10 +1,43 @@
+alias:
+  qu1: "Sum$(vdc_gr_u1.fCharge)/vdc_gr_u1@.GetEntriesFast()"
+  qu2: "Sum$(vdc_gr_u2.fCharge)/vdc_gr_u2@.GetEntriesFast()"
+  qps1: "pla_gr_att_1[0].fCharge"
 anchor:
   - &grx [vdc_gr.fX, 240, -600.,600.]
+  - &gra [vdc_gr.fA, 240, -0.1,0.1]
+  - &aQu1 [qu1, 200, 0., 150.]
+  - &aQu2 [qu2, 200, 0., 150.]
+  - &aQps1 [qps1, 200, 0, 250.]
 
 group:
+  - name: eff
+    title: eff
+    cut: pla_gr_att_2@.GetEntriesFast() == 1 && pla_gr_att_2.fCharge > 100.
+    contents:
+      - name: effx1
+        title: Eff X1
+        x: [vdc_gr_x1@.GetEntriesFast()>2, 2,-0.5,1.5]
+      - name: effu1
+        title: Eff U1
+        x: [vdc_gr_u1@.GetEntriesFast()>2, 2,-0.5,1.5]
+      - name: effx2
+        title: Eff X2
+        x: [vdc_gr_x2@.GetEntriesFast()>2, 2,-0.5,1.5]
+      - name: effu2
+        title: Eff U@
+        x: [vdc_gr_u2@.GetEntriesFast()>2, 2,-0.5,1.5]
+        
   - name: psq_grx
     title: Q_PS vs GRX
     contents: 
+      - name: pss1l_x
+        title: Q_PS1L (str) vs GRX
+        x: *grx
+        y: ["pla_gr_str_1.fQ1", 200, 0.,500.]
+      - name: pss1r_x
+        title: Q_PS1R (str) vs GRX
+        x: *grx
+        y: ["pla_gr_str_1.fQ2", 200, 0.,500.]
       - name: ps1l_x
         title: Q_PS1L vs GRX
         x: *grx
@@ -26,6 +59,40 @@ group:
         x: *grx
         y: ["pla_gr_att_3.fQ1", 200, 0.,500.]
       - name: ps3r_x
-        title: Q_PS3L vs GRX
+        title: Q_PS3R vs GRX
         x: *grx
         y: ["pla_gr_att_3.fQ2", 200, 0.,500.]
+      - name: pss1_x
+        title: Q_PS1 (str) vs GRX
+        x: *grx
+        y: ["pla_gr_str_1.fCharge", 200, 0.,500.]
+      - name: ps1_x
+        title: Q_PS1 vs GRX
+        x: *grx
+        y: ["pla_gr_att_1.fCharge", 200, 0.,500.]
+      - name: ps2_x
+        title: Q_PS2 vs GRX
+        x: *grx
+        y: ["pla_gr_att_2.fCharge", 200, 0.,500.]
+      - name: ps3_x
+        title: Q_PS3 vs GRX
+        x: *grx
+        y: ["pla_gr_att_3.fCharge", 200, 0.,500.]
+      - name: qu1_ps1
+        title: Q_U1 vs Q_PS1
+        cut: pla_gr_att_1@.GetEntriesFast() > 0 && vdc_gr_u1@.GetEntriesFast() > 0
+        y: *aQps1
+        x: *aQu1
+      - name: gra_grx_cqu1_cps1
+        title: A vs X (cQu1 cQps1)
+        cut: qu1 > 55 && qps1 > 110 && vdc_gr@.GetEntriesFast() > 0 && pla_gr_att_1@.GetEntriesFast() == 1
+        x: *grx
+        y: *gra
+      - name: vdc_id_cQps1
+        title: VDC ID (cQps1)
+        cut: pla_gr_att_1[0].fCharge < 60
+        x: ["vdc_gr_raw.fID",800,0.,800.]
+      - name: nantyatte_ex
+        title: Nantyatte Ex 12C(a,d)
+        cut: pla_gr_att_3[0].fCharge > 315. && pla_gr_att_3[0].fCharge < 350. && vdc_gr@.GetEntriesFast() > 0
+        x: ["(vdc_gr[0].fX+508.3) * 8.217",220,-1000.,9000.]

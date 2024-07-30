@@ -17,5 +17,13 @@ Processor:
       Replace: ""  # [TString] Replacement of macro
       Type: art::TTreeProjection  # [TString] type(class) of parameter
       Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
+  - name: MyTTreeProjectionProcessor
+    type: art::TTreeProjectionProcessor
+    parameter:
+      FileName: hist/correlations.hist.yaml  # [TString] input filename
+      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
+      Replace: ""  # [TString] Replacement of macro
+      Type: art::TTreeProjection  # [TString] type(class) of parameter
+      Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
 
     

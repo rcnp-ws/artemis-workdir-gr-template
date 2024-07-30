@@ -2,9 +2,15 @@ include:
   - name: hist/pla/pla_gr.tmpl.hist.yaml
     replace: 
       TYPE: str
+      QMAX1: 1000.
+      QMAX2: 1000.
+      QMAX3: 1000.
   - name: hist/pla/pla_gr.tmpl.hist.yaml
     replace: 
       TYPE: att
+      QMAX1: 250.
+      QMAX2: 400.
+      QMAX3: 400.
   - name: hist/vdc/vdc.hist.yaml
     replace:
     

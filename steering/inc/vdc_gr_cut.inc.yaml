@@ -65,14 +65,6 @@ Processor:
       TrailingComesFirst: 0
       OutputCollection: vdc_gr_raw
       OutputTransparency: 0
-  - name: gate_vdc_raw
-    type: art::TTreeFormulaGateProcessor
-    parameter:
-      Definitions: ["vdc_gr_raw_entry; vdc_gr_raw@.GetEntriesFast() > 2"]  # [StringVec_t] gate definitions
-#  - name: gate_stop_vdc_raw
-#    type: art::TGateStopProcessor
-#    parameter:
-#      GateName: vdc_gr_raw_entry  # [TString] name of gate to test      
   - name: proc_vdc_gr_calib
     type: art::TTimingChargeCalibrationProcessor
     parameter:
@@ -87,7 +79,7 @@ Processor:
       InputCollection: vdc_gr_cal
       MaxDetID: 800
       OutputCollection: vdc_gr_dt
-      StartTimingCollection: pla_gr_str_2
+      StartTimingCollection: pla_gr_str_1
       UseMultipleStartTiming: 1
       UseStartAsTimestamp: 1  # [Int_t] timestamp is start (if 1) or end (if 0)
       StartTimingDetID: 0  # [Int_t] detID of reference timing source (if -1 use any id)      
@@ -105,6 +97,46 @@ Processor:
         - VDC_PRM_GR_U2
       OutputTransparency: 0 
       GR_OR_LAS: 0
+  - name: gate_vdc_raw
+    type: art::TTreeFormulaGateProcessor
+    parameter:
+      Definitions: ["vdc_gr_x1_m; vdc_gr_x1@.GetEntriesFast() > 2"]  # [StringVec_t] gate definitions
+  - name: gate_vdc_raw
+    type: art::TTreeFormulaGateProcessor
+    parameter:
+      Definitions: ["vdc_gr_x2_m; vdc_gr_x2@.GetEntriesFast() > 2"]  # [StringVec_t] gate definitions
+  - name: gate_vdc_raw
+    type: art::TTreeFormulaGateProcessor
+    parameter:
+      Definitions: ["vdc_gr_u1_m; vdc_gr_u1@.GetEntriesFast() > 2"]  # [StringVec_t] gate definitions
+  - name: gate_vdc_raw
+    type: art::TTreeFormulaGateProcessor
+    parameter:
+      Definitions: ["vdc_gr_u2_m; vdc_gr_u2@.GetEntriesFast() > 2"]  # [StringVec_t] gate definitions
+  - name: gate_vdc_raw
+    type: art::TTreeFormulaGateProcessor
+    parameter:
+      Definitions: ["vdc_gr_u1_q; Sum$(vdc_gr_u1.fCharge)/vdc_gr_u1@.GetEntriesFast() > 55"]  # [StringVec_t] gate definitions
+  - name: gate_stop_vdc_raw
+    type: art::TGateStopProcessor
+    parameter:
+      GateName: vdc_gr_x1_m # [TString] name of gate to test      
+  - name: gate_stop_vdc_raw
+    type: art::TGateStopProcessor
+    parameter:
+      GateName: vdc_gr_x2_m # [TString] name of gate to test      
+  - name: gate_stop_vdc_raw
+    type: art::TGateStopProcessor
+    parameter:
+      GateName: vdc_gr_u1_m # [TString] name of gate to test      
+  - name: gate_stop_vdc_raw
+    type: art::TGateStopProcessor
+    parameter:
+      GateName: vdc_gr_u2_m # [TString] name of gate to test      
+  - name: gate_stop_vdc_raw
+    type: art::TGateStopProcessor
+    parameter:
+      GateName: vdc_gr_u1_q # [TString] name of gate to test      
 
 # cluster analysis
 # require at least three hits in each plane
