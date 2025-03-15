@@ -7,7 +7,6 @@ alias:
   qx2ave : "Sum$(vdc_gr_x2.fCharge)/Mx2"
   qu1ave : "Sum$(vdc_gr_u1.fCharge)/Mu1"
   qu2ave : "Sum$(vdc_gr_u2.fCharge)/Mu2"
-
 anchor:
   - &axisX ["vdc_gr.fX",100,-600.,600]
   - &axisXf ["vdc_gr.GetX(400)",100,-600.,600]
@@ -50,6 +49,10 @@ group:
       - name: MultVdcU2
         title: multiplicity vdc u2
         x: ["vdc_gr_u2@.GetEntriesFast()",20,-0.5,19.5]
+      - name: IDx1_IDx2
+        title: IDx2 vs IDx1
+        x: ["vdc_gr_x1.fID",192,-0.5,192]
+        y: ["vdc_gr_x2.fID",192,-0.5,192]
       - name: Qx1ave_Qx2ave
         title: Qx2aev vs Qx1ave
         cut: Mx1 > 0 && Mx2 > 0
@@ -84,4 +87,3 @@ group:
         title: Xf
         cut: abs(vdc_gr.fA + 0.01) < 0.005 && abs(vdc_gr.fY) < 10
         x: ["vdc_gr.fX",1200,-600.,600]
-  

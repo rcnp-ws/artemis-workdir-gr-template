@@ -2,12 +2,16 @@ alias:
   qu1: "Sum$(vdc_gr_u1.fCharge)/vdc_gr_u1@.GetEntriesFast()"
   qu2: "Sum$(vdc_gr_u2.fCharge)/vdc_gr_u2@.GetEntriesFast()"
   qps1: "pla_gr_att_1[0].fCharge"
+  qps2: "pla_gr_att_2[0].fCharge"
+  rft: "rf.fTiming"
 anchor:
   - &grx [vdc_gr.fX, 240, -600.,600.]
   - &gra [vdc_gr.fA, 240, -0.1,0.1]
   - &aQu1 [qu1, 200, 0., 150.]
   - &aQu2 [qu2, 200, 0., 150.]
   - &aQps1 [qps1, 200, 0, 250.]
+  - &aQps2 [qps2, 200, 0, 250.]
+  - &arft [rft, 200, -1000., 1000.]
 
 group:
   - name: eff
@@ -26,6 +30,18 @@ group:
       - name: effu2
         title: Eff U@
         x: [vdc_gr_u2@.GetEntriesFast()>2, 2,-0.5,1.5]
+  - name: correlations
+    title: Correlations
+    contents:
+      - name: dE1_rf
+        title: dE1 vs RF
+        x: *arft
+        y: *aQps1
+      - name: dE2_rf
+        title: dE2 vs RF
+        x: *arft
+        y: *aQps2
+      
         
   - name: psq_grx
     title: Q_PS vs GRX
